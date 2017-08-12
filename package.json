@@ -1,0 +1,16 @@
+{
+  "name": "iterator",
+  "version": "0.0.1",
+  "description": "",
+  "main": "iterator.js",
+  "scripts": {
+    "test": "mocha *.spec.js",
+    "gendoc": "jsdoc2md iterator.js > Documentation.md"
+  },
+  "keywords": [],
+  "author": "Mikhail Vyrtsev",
+  "license": "BSD",
+  "devDependencies": {
+    "jsdoc-to-markdown": "^3.0.0"
+  }
+}
