@@ -15,7 +15,7 @@
 <dd><p>function which Iterator instance mepthod consumes</p>
 </dd>
 <dt><a href="#reduceFunction">reduceFunction</a> ⇒ <code>*</code></dt>
-<dd><p>function which Iterator instance mepthod consumes</p>
+<dd><p>function which Iterator instance method consumes</p>
 </dd>
 <dt><a href="#accumulatorComparator">accumulatorComparator</a> ⇒ <code>boolean</code></dt>
 <dd><p>function which Iterator instance mepthod consumes</p>
@@ -288,7 +288,7 @@ function which Iterator instance mepthod consumes
 <a name="reduceFunction"></a>
 
 ## reduceFunction ⇒ <code>\*</code>
-function which Iterator instance mepthod consumes
+function which Iterator instance method consumes
 
 **Kind**: global typedef  
 
