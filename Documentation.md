@@ -57,7 +57,7 @@ Makes new Iterator.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| gen | [<code>generator</code>](#generator) | generator function |
+| gen | <code>iterator</code> | iterator |
 
 <a name="Iterator+toArray"></a>
 

@@ -1,7 +1,7 @@
 /**
  * Makes new Iterator.
  * @constructor
- * @param {generator} gen - generator function
+ * @param {iterator} gen - iterator
  */
 function Iterator(gen){
 	this.gen = gen;
