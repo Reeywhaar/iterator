@@ -83,7 +83,7 @@ Iterator.prototype.filter = function(fn){
 
 
 /**
- * function which Iterator instance mepthod consumes
+ * function which Iterator instance method consumes
  *
  * @typedef reduceFunction
  * @param {*} carry - accumulator
