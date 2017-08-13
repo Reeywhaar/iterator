@@ -8,9 +8,7 @@ function Iterator(gen){
 }
 
 Iterator.prototype[Symbol.iterator] = function*(){
-	for(let item of this.gen){
-		yield item;
-	}
+	yield* this.gen;
 }
 
 /**
@@ -277,12 +275,7 @@ Iterator.prototype.accumulateN = function(n, yieldRest = false){
  */
 Iterator.prototype.subSplit = function(gen){
 	const it = function* () {
-		for(let item of this.gen){
-			let g = gen(item);
-			for(let subItem of g){
-				yield subItem;
-			}
-		}
+		for(let item of this.gen) yield* gen(item);
 	}
 	return new Iterator(it.call(this));
 }
