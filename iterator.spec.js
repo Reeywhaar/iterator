@@ -106,5 +106,12 @@ describe(`Iterator`, function(){
 			const i = I.fromArray([1,2,3]);
 			assert.deepStrictEqual(i.toArray(), [1,2,3]);
 		});
+		it(`fromMultiple`, function(){
+			const i = I.fromMultiple(
+				I.fromArray([1,2,3]),
+				I.fromArray(["a","b","c"]),
+			);
+			assert.deepStrictEqual(i.toArray(), [1,"a",2,"b",3,"c"]);
+		});
 	});
 });

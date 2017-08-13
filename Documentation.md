@@ -48,6 +48,7 @@
         * [.subSplit(generator)](#Iterator+subSplit) ⇒ [<code>Iterator</code>](#Iterator)
     * _static_
         * [.fromArray(arr)](#Iterator.fromArray) ⇒ [<code>Iterator</code>](#Iterator)
+        * [.fromMultiple(iters)](#Iterator.fromMultiple) ⇒ [<code>Iterator</code>](#Iterator)
 
 <a name="new_Iterator_new"></a>
 
@@ -260,6 +261,24 @@ Makes Iterator from array
 | --- | --- | --- |
 | arr | <code>Array.&lt;Any&gt;</code> | array |
 
+<a name="Iterator.fromMultiple"></a>
+
+### Iterator.fromMultiple(iters) ⇒ [<code>Iterator</code>](#Iterator)
+Makes Iterator from array
+
+**Kind**: static method of [<code>Iterator</code>](#Iterator)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| iters | <code>Array.&lt;iterator&gt;</code> | iterators |
+
+**Example**  
+```js
+Iterator.fromMultiple(
+	Iterator.fromArray([1,2,3]),
+	Iterator.fromArray(["a","b","c"]),
+).toArray() // [1,"a","2","b",3,"c"]
+```
 <a name="mapFunction"></a>
 
 ## mapFunction ⇒

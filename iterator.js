@@ -11,6 +11,10 @@ Iterator.prototype[Symbol.iterator] = function*(){
 	yield* this.gen;
 }
 
+Iterator.prototype.next = function(value){
+	return this.gen.next(value);
+}
+
 /**
  * Transform iterator to array.
  * Be aware with infinite iterators
@@ -289,6 +293,34 @@ Iterator.prototype.subSplit = function(gen){
 Iterator.fromArray = function(arr){
 	const it = function* () {
 		for(let item of arr) yield item;
+	}
+	return new Iterator(it.call(this));
+}
+
+/**
+ * Makes Iterator from array
+ *
+ * @param {iterator[]} iters - iterators
+ * @returns {Iterator}
+ * @example
+ * Iterator.fromMultiple(
+ * 	Iterator.fromArray([1,2,3]),
+ * 	Iterator.fromArray(["a","b","c"]),
+ * ).toArray() // [1,"a","2","b",3,"c"]
+ */
+Iterator.fromMultiple = function(...iters){
+	const itersCopy = iters.slice(0);
+	const it = function* () {
+		while(itersCopy.length > 0){
+			for(let it of itersCopy){
+				let step = it.next();
+				if(!step.done){
+					yield step.value;
+				} else {
+					itersCopy.splice(itersCopy.indexOf(it), 1);
+				};
+			}
+		}
 	}
 	return new Iterator(it.call(this));
 }
