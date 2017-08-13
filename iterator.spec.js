@@ -80,11 +80,17 @@ describe(`Iterator`, function(){
 			const i = new I(range(5));
 			assert.deepStrictEqual(i.evens().toArray(), [0,2,4]);
 		});
-		it(`takeMultiple`, function(){
+		it(`accumulateN`, function(){
 			const i = new I(range(5));
 			assert.deepStrictEqual(i.accumulateN(2).toArray(), [[0,1],[2,3]]);
 			const j = new I(range(5));
 			assert.deepStrictEqual(j.accumulateN(2, true).toArray(), [[0,1],[2,3],[4]]);
+		});
+		it(`accumulateWhile`, function(){
+			const i = I.fromArray(["a", "b", "c", "a", "b", "c"])
+			assert.deepStrictEqual(i.accumulateWhile((c, x) => {
+				return x === "c";
+			}).toArray(), [["a","b","c"],["a","b","c"]]);
 		});
 		it(`subSplit`, function(){
 			const i = new I(shakespeare());

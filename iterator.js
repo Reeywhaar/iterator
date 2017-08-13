@@ -90,6 +90,7 @@ Iterator.prototype.filter = function(fn){
  * @typedef reduceFunction
  * @param {*} carry - accumulator
  * @param {*} item - iterator item
+ * @param {number} index - item index
  * @return {*}
  */
 
@@ -200,31 +201,57 @@ Iterator.prototype.odds = function(){
 }
 
 /**
- * Accumulate multiple items of iterator into one
+ * function which Iterator instance mepthod consumes
  *
- * @param {number} n - items to take
- * @param {boolean} [yieldRest=false] - specifies will iterator will yield the rest of values if iterator length wasn't divisible bu modulus
+ * @typedef accumulatorComparator
+ * @param {Any[]} arr - array of accumulated values
+ * @param {*} current - iterator item which is also last item it arr
+ * @param {number} index - item index
+ * @return {boolean}
+ */
+
+/**
+ * Accumulate multiple items until closure return true
+ *
+ * @param {accumulatorComparator} fn - comparison function
+ * @param {boolean} [yieldRest=false] - specifies will iterator will yield the rest of values if iterator length wasn't divisible by modulus
  * @returns {Iterator}
  * @example
- * range(0,5).accumalateN(2, true) // [[0,1],[2,3],[4]]
+ * Iterator.fromArray(["a","b","c","a","b","c"])
+ * .accumalateWhile((c,x)=> x === "c") // [["a","b","c"],["a","b","c"]]
  */
-Iterator.prototype.accumulateN = function(n, yieldRest = false){
+Iterator.prototype.accumulateWhile = function(fn, yieldRest = false){
 	const it = function* () {
 		let step = this.gen.next();
 		let arr = [];
+		let i = 0;
 		while(!step.done){
 			arr.push(step.value);
-			if(arr.length === n){
+			if(fn(arr, step.value, i)){
 				yield arr;
 				arr = [];
 			}
 			step = this.gen.next();
+			i++;
 		};
 		if(arr.length > 0 && yieldRest){
 			yield arr;
 		}
 	}
 	return new Iterator(it.call(this));
+}
+
+/**
+ * Accumulate multiple items of iterator into one
+ *
+ * @param {number} n - items to take
+ * @param {boolean} [yieldRest=false] - specifies will iterator will yield the rest of values if iterator length wasn't divisible by modulus
+ * @returns {Iterator}
+ * @example
+ * range(0,5).accumalateN(2, true) // [[0,1],[2,3],[4]]
+ */
+Iterator.prototype.accumulateN = function(n, yieldRest = false){
+	return this.accumulateWhile((c,x,i) => c.length === n, yieldRest);
 }
 
 /**
