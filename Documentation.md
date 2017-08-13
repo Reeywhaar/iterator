@@ -207,7 +207,7 @@ Accumulate multiple items until closure return true
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | fn | [<code>accumulatorComparator</code>](#accumulatorComparator) |  | comparison function |
-| [yieldRest] | <code>boolean</code> | <code>false</code> | specifies will iterator will yield the rest of values if iterator length wasn't divisible by modulus |
+| [yieldRest] | <code>boolean</code> | <code>false</code> | specifies will iterator rest of values |
 
 **Example**  
 ```js
@@ -228,7 +228,7 @@ Accumulate multiple items of iterator into one
 
 **Example**  
 ```js
-range(0,5).accumalateN(2, true) // [[0,1],[2,3],[4]]
+range(0,5).accumulateN(2, true) // [[0,1],[2,3],[4]]
 ```
 <a name="Iterator+subSplit"></a>
 
@@ -243,7 +243,7 @@ Subsplits iterator items and subyields them
 
 **Example**  
 ```js
-Iterator.fromArray(["ab", "cd"]).subsplit(function*(item){
+Iterator.fromArray(["ab", "cd"]).subSplit(function*(item){
 	for(let char of item){
 		yield item
 	}
