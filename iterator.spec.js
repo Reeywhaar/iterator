@@ -56,6 +56,12 @@ describe(`Iterator`, function(){
 			const i = new I(range(5));
 			assert.deepStrictEqual(i.map(x => x*2).toArray(), [0,2,4,6,8]);
 		});
+		it(`forEach`, function(){
+			const i = new I(range(5));
+			const arr = [];
+			i.forEach(x => arr.push(x));
+			assert.deepStrictEqual(arr, [0,1,2,3,4]);
+		});
 		it(`filter`, function(){
 			const i = new I(range(5));
 			assert.deepStrictEqual(i.filter(x => x%2 === 0).toArray(), [0,2,4]);

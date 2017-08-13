@@ -35,6 +35,7 @@
     * _instance_
         * [.toArray()](#Iterator+toArray) ⇒ <code>Array.&lt;Any&gt;</code>
         * [.map(fn)](#Iterator+map) ⇒ [<code>Iterator</code>](#Iterator)
+        * [.forEach(fn)](#Iterator+forEach) ⇒ <code>void</code>
         * [.filter(fn)](#Iterator+filter) ⇒ [<code>Iterator</code>](#Iterator)
         * [.reduce(fn, [initialValue])](#Iterator+reduce) ⇒ <code>\*</code>
         * [.take(count)](#Iterator+take) ⇒ [<code>Iterator</code>](#Iterator)
@@ -81,6 +82,24 @@ Map over iterator values
 **Example**  
 ```js
 range(0,5).map(x => x*2) // [0,2,4,6,8]
+```
+<a name="Iterator+forEach"></a>
+
+### iterator.forEach(fn) ⇒ <code>void</code>
+Executes function over iterator item.
+Be aware that iterator will be consumed after this.
+
+**Kind**: instance method of [<code>Iterator</code>](#Iterator)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fn | [<code>mapFunction</code>](#mapFunction) | function to transform values |
+
+**Example**  
+```js
+const arr = [];
+range(0,5).forEach(x => arr.push(x*2))
+arr; // [0,2,4,6,8]
 ```
 <a name="Iterator+filter"></a>
 

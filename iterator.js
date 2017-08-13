@@ -58,6 +58,25 @@ Iterator.prototype.map = function(fn){
 }
 
 /**
+ * Executes function over iterator item.
+ * Be aware that iterator will be consumed after this.
+ *
+ * @param {mapFunction} fn - function to transform values
+ * @returns {void}
+ * @example
+ * const arr = [];
+ * range(0,5).forEach(x => arr.push(x*2))
+ * arr; // [0,2,4,6,8]
+ */
+Iterator.prototype.forEach = function(fn){
+	let i = 0;
+	for(let item of this.gen){
+		fn(item, i);
+		i++;
+	}
+}
+
+/**
  * function which Iterator instance mepthod consumes
  *
  * @typedef filterFunction
