@@ -132,7 +132,7 @@ Iterator.prototype.reduce = function(fn, initial){
  * range(0,5).take(2) // [0,1]
  */
 Iterator.prototype.take = function(count){
-	return this.filter((x,i) => i < count);
+	return this.while((x,i) => i < count);
 }
 
 /**

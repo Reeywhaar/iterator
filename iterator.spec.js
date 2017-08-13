@@ -7,6 +7,14 @@ function* range(max, start = 0){
 	}
 }
 
+function* counter(){
+	let i = 0;
+	while(true){
+		yield i;
+		i++;
+	}
+}
+
 function* chars(str){
 	for(let char of str){
 		yield char;
@@ -59,6 +67,8 @@ describe(`Iterator`, function(){
 		it(`take`, function(){
 			const i = new I(range(5));
 			assert.deepStrictEqual(i.take(2).toArray(), [0,1]);
+			const j = new I(counter())
+			assert.deepStrictEqual(j.take(2).toArray(), [0,1]);
 		});
 		it(`skip`, function(){
 			const i = new I(range(5));
