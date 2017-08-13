@@ -212,7 +212,7 @@ Iterator.prototype.odds = function(){
  * Accumulate multiple items until closure return true
  *
  * @param {accumulatorComparator} fn - comparison function
- * @param {boolean} [yieldRest=false] - specifies will iterator rest of values
+ * @param {boolean} [yieldRest=false] - specifies will iterator yield rest of values
  * @returns {Iterator}
  * @example
  * Iterator.fromArray(["a","b","c","a","b","c"])
@@ -243,7 +243,7 @@ Iterator.prototype.accumulateWhile = function(fn, yieldRest = false){
  * Accumulate multiple items of iterator into one
  *
  * @param {number} n - items to take
- * @param {boolean} [yieldRest=false] - specifies will iterator will yield the rest of values if iterator length wasn't divisible by modulus
+ * @param {boolean} [yieldRest=false] - specifies will iterator yield the rest of values if iterator length wasn't divisible by modulus
  * @returns {Iterator}
  * @example
  * range(0,5).accumulateN(2, true) // [[0,1],[2,3],[4]]

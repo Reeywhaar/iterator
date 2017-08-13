@@ -207,7 +207,7 @@ Accumulate multiple items until closure return true
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | fn | [<code>accumulatorComparator</code>](#accumulatorComparator) |  | comparison function |
-| [yieldRest] | <code>boolean</code> | <code>false</code> | specifies will iterator rest of values |
+| [yieldRest] | <code>boolean</code> | <code>false</code> | specifies will iterator yield rest of values |
 
 **Example**  
 ```js
@@ -224,7 +224,7 @@ Accumulate multiple items of iterator into one
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | n | <code>number</code> |  | items to take |
-| [yieldRest] | <code>boolean</code> | <code>false</code> | specifies will iterator will yield the rest of values if iterator length wasn't divisible by modulus |
+| [yieldRest] | <code>boolean</code> | <code>false</code> | specifies will iterator yield the rest of values if iterator length wasn't divisible by modulus |
 
 **Example**  
 ```js
