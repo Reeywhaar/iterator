@@ -38,18 +38,24 @@
         * [.forEach(fn)](#Iterator+forEach) ⇒ <code>void</code>
         * [.filter(fn)](#Iterator+filter) ⇒ [<code>Iterator</code>](#Iterator)
         * [.reduce(fn, [initialValue])](#Iterator+reduce) ⇒ <code>\*</code>
+        * [.enumerate()](#Iterator+enumerate) ⇒ [<code>Iterator</code>](#Iterator)
         * [.take(count)](#Iterator+take) ⇒ [<code>Iterator</code>](#Iterator)
         * [.skip(count)](#Iterator+skip) ⇒ [<code>Iterator</code>](#Iterator)
         * [.while(fn)](#Iterator+while) ⇒ [<code>Iterator</code>](#Iterator)
         * [.everyNth(modulus)](#Iterator+everyNth) ⇒ [<code>Iterator</code>](#Iterator)
-        * [.evens()](#Iterator+evens) ⇒ [<code>Iterator</code>](#Iterator)
-        * [.odds(count)](#Iterator+odds) ⇒ [<code>Iterator</code>](#Iterator)
+        * [.even()](#Iterator+even) ⇒ [<code>Iterator</code>](#Iterator)
+        * [.odd(count)](#Iterator+odd) ⇒ [<code>Iterator</code>](#Iterator)
+        * [.concat(...iters)](#Iterator+concat) ⇒ [<code>Iterator</code>](#Iterator)
+        * [.concatLeft(...iters)](#Iterator+concatLeft) ⇒ [<code>Iterator</code>](#Iterator)
+        * [.merge(...iters)](#Iterator+merge) ⇒ [<code>Iterator</code>](#Iterator)
+        * [.mergeLeft(...iters)](#Iterator+mergeLeft) ⇒ [<code>Iterator</code>](#Iterator)
         * [.accumulateWhile(fn, [yieldRest])](#Iterator+accumulateWhile) ⇒ [<code>Iterator</code>](#Iterator)
         * [.accumulateN(n, [yieldRest])](#Iterator+accumulateN) ⇒ [<code>Iterator</code>](#Iterator)
         * [.subSplit(generator)](#Iterator+subSplit) ⇒ [<code>Iterator</code>](#Iterator)
     * _static_
+        * [.new(iter)](#Iterator.new) ⇒ [<code>Iterator</code>](#Iterator)
         * [.fromArray(arr)](#Iterator.fromArray) ⇒ [<code>Iterator</code>](#Iterator)
-        * [.fromMultiple(iters)](#Iterator.fromMultiple) ⇒ [<code>Iterator</code>](#Iterator)
+        * [.fromMultiple(...iters)](#Iterator.fromMultiple) ⇒ [<code>Iterator</code>](#Iterator)
 
 <a name="new_Iterator_new"></a>
 
@@ -132,6 +138,16 @@ Reduce iterator
 ```js
 range(0,5).reduce((c,x) => c+x) // 10
 ```
+<a name="Iterator+enumerate"></a>
+
+### iterator.enumerate() ⇒ [<code>Iterator</code>](#Iterator)
+Enumarate iterator
+
+**Kind**: instance method of [<code>Iterator</code>](#Iterator)  
+**Example**  
+```js
+range(1,5).enumerate() // [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5]]
+```
 <a name="Iterator+take"></a>
 
 ### iterator.take(count) ⇒ [<code>Iterator</code>](#Iterator)
@@ -192,19 +208,19 @@ Takes every nth items of iterator
 ```js
 range(0,5).everyNth(2) // [0,2,4]
 ```
-<a name="Iterator+evens"></a>
+<a name="Iterator+even"></a>
 
-### iterator.evens() ⇒ [<code>Iterator</code>](#Iterator)
+### iterator.even() ⇒ [<code>Iterator</code>](#Iterator)
 Take even items of iterator
 
 **Kind**: instance method of [<code>Iterator</code>](#Iterator)  
 **Example**  
 ```js
-range(0,5).evens() // [0,2,4]
+range(0,5).even() // [0,2,4]
 ```
-<a name="Iterator+odds"></a>
+<a name="Iterator+odd"></a>
 
-### iterator.odds(count) ⇒ [<code>Iterator</code>](#Iterator)
+### iterator.odd(count) ⇒ [<code>Iterator</code>](#Iterator)
 Take odd items of iterator
 
 **Kind**: instance method of [<code>Iterator</code>](#Iterator)  
@@ -215,7 +231,71 @@ Take odd items of iterator
 
 **Example**  
 ```js
-range(0,5).odds() // [1,3,5]
+range(0,5).odd() // [1,3,5]
+```
+<a name="Iterator+concat"></a>
+
+### iterator.concat(...iters) ⇒ [<code>Iterator</code>](#Iterator)
+Concat multiple iterators
+
+**Kind**: instance method of [<code>Iterator</code>](#Iterator)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...iters | <code>iterator</code> | iterators to take |
+
+**Example**  
+```js
+Iterator.fromArray([0,1,2])
+.concat(Iterator.fromArray(["a","b","c"])) // [[0,1,2,"a","b","c"]]
+```
+<a name="Iterator+concatLeft"></a>
+
+### iterator.concatLeft(...iters) ⇒ [<code>Iterator</code>](#Iterator)
+Prepend multiple iterators
+
+**Kind**: instance method of [<code>Iterator</code>](#Iterator)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...iters | <code>iterator</code> | iterators to take |
+
+**Example**  
+```js
+Iterator.fromArray([0,1,2])
+.concatLeft(Iterator.fromArray(["a","b","c"])) // [["a","b","c",0,1,2]]
+```
+<a name="Iterator+merge"></a>
+
+### iterator.merge(...iters) ⇒ [<code>Iterator</code>](#Iterator)
+Merge multiple iterators
+
+**Kind**: instance method of [<code>Iterator</code>](#Iterator)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...iters | <code>iterator</code> | iterators to take |
+
+**Example**  
+```js
+Iterator.fromArray([0,1,2])
+.merge(Iterator.fromArray(["a","b","c"])) // [[0,"a",1,"b",2,"c"]]
+```
+<a name="Iterator+mergeLeft"></a>
+
+### iterator.mergeLeft(...iters) ⇒ [<code>Iterator</code>](#Iterator)
+Merge multiple iterators from left
+
+**Kind**: instance method of [<code>Iterator</code>](#Iterator)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...iters | <code>iterator</code> | iterators to take |
+
+**Example**  
+```js
+Iterator.fromArray([0,1,2])
+.mergeLeft(Iterator.fromArray(["a","b","c"])) // [["a",0,"b",1,"c",2]]
 ```
 <a name="Iterator+accumulateWhile"></a>
 
@@ -232,7 +312,7 @@ Accumulate multiple items until closure return true
 **Example**  
 ```js
 Iterator.fromArray(["a","b","c","a","b","c"])
-.accumalateWhile((c,x)=> x === "c") // [["a","b","c"],["a","b","c"]]
+.accumulateWhile((c,x)=> x === "c") // [["a","b","c"],["a","b","c"]]
 ```
 <a name="Iterator+accumulateN"></a>
 
@@ -269,6 +349,17 @@ Iterator.fromArray(["ab", "cd"]).subSplit(function*(item){
 	}
 }) // ["a", "b", "c", "d"]
 ```
+<a name="Iterator.new"></a>
+
+### Iterator.new(iter) ⇒ [<code>Iterator</code>](#Iterator)
+creates new Iterator from iterator
+
+**Kind**: static method of [<code>Iterator</code>](#Iterator)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| iter | <code>iterator</code> | iterator |
+
 <a name="Iterator.fromArray"></a>
 
 ### Iterator.fromArray(arr) ⇒ [<code>Iterator</code>](#Iterator)
@@ -282,14 +373,14 @@ Makes Iterator from array
 
 <a name="Iterator.fromMultiple"></a>
 
-### Iterator.fromMultiple(iters) ⇒ [<code>Iterator</code>](#Iterator)
+### Iterator.fromMultiple(...iters) ⇒ [<code>Iterator</code>](#Iterator)
 Makes Iterator from array
 
 **Kind**: static method of [<code>Iterator</code>](#Iterator)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| iters | <code>Array.&lt;iterator&gt;</code> | iterators |
+| ...iters | <code>iterator</code> | iterators |
 
 **Example**  
 ```js

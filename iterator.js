@@ -143,6 +143,24 @@ Iterator.prototype.reduce = function(fn, initial){
 }
 
 /**
+ * Enumarate iterator
+ *
+ * @returns {Iterator}
+ * @example
+ * range(1,5).enumerate() // [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5]]
+ */
+Iterator.prototype.enumerate = function(){
+	const it = function* () {
+		let i = 0;
+		for(let item of this.gen){
+			yield [i, item];
+			i++;
+		}
+	}
+	return new Iterator(it.call(this));
+}
+
+/**
  * Take first n items of iterator
  *
  * @param {number} count - items to take
@@ -203,9 +221,9 @@ Iterator.prototype.everyNth = function(n){
  *
  * @returns {Iterator}
  * @example
- * range(0,5).evens() // [0,2,4]
+ * range(0,5).even() // [0,2,4]
  */
-Iterator.prototype.evens = function(){
+Iterator.prototype.even = function(){
 	return this.everyNth(2);
 }
 
@@ -215,10 +233,70 @@ Iterator.prototype.evens = function(){
  * @param {number} count - items to take
  * @returns {Iterator}
  * @example
- * range(0,5).odds() // [1,3,5]
+ * range(0,5).odd() // [1,3,5]
  */
-Iterator.prototype.odds = function(){
+Iterator.prototype.odd = function(){
 	return this.skip(1).everyNth(2);
+}
+
+/**
+ * Concat multiple iterators
+ *
+ * @param {...iterator} iters - iterators to take
+ * @returns {Iterator}
+ * @example
+ * Iterator.fromArray([0,1,2])
+ * .concat(Iterator.fromArray(["a","b","c"])) // [[0,1,2,"a","b","c"]]
+ */
+Iterator.prototype.concat = function(...iters){
+	const it = function*(){
+		yield* this.gen;
+		for(let iter of iters) yield* iter;
+	}
+	return new Iterator(it.call(this));
+}
+
+/**
+ * Prepend multiple iterators
+ *
+ * @param {...iterator} iters - iterators to take
+ * @returns {Iterator}
+ * @example
+ * Iterator.fromArray([0,1,2])
+ * .concatLeft(Iterator.fromArray(["a","b","c"])) // [["a","b","c",0,1,2]]
+ */
+Iterator.prototype.concatLeft = function(...iters){
+	const it = function*(){
+		for(let iter of iters) yield* iter;
+		yield* this.gen;
+	}
+	return new Iterator(it.call(this));
+}
+
+/**
+ * Merge multiple iterators
+ *
+ * @param {...iterator} iters - iterators to take
+ * @returns {Iterator}
+ * @example
+ * Iterator.fromArray([0,1,2])
+ * .merge(Iterator.fromArray(["a","b","c"])) // [[0,"a",1,"b",2,"c"]]
+ */
+Iterator.prototype.merge = function(...iters){
+	return Iterator.fromMultiple(this.gen, ...iters);
+}
+
+/**
+ * Merge multiple iterators from left
+ *
+ * @param {...iterator} iters - iterators to take
+ * @returns {Iterator}
+ * @example
+ * Iterator.fromArray([0,1,2])
+ * .mergeLeft(Iterator.fromArray(["a","b","c"])) // [["a",0,"b",1,"c",2]]
+ */
+Iterator.prototype.mergeLeft = function(...iters){
+	return Iterator.fromMultiple(...iters, this.gen);
 }
 
 /**
@@ -239,7 +317,7 @@ Iterator.prototype.odds = function(){
  * @returns {Iterator}
  * @example
  * Iterator.fromArray(["a","b","c","a","b","c"])
- * .accumalateWhile((c,x)=> x === "c") // [["a","b","c"],["a","b","c"]]
+ * .accumulateWhile((c,x)=> x === "c") // [["a","b","c"],["a","b","c"]]
  */
 Iterator.prototype.accumulateWhile = function(fn, yieldRest = false){
 	const it = function* () {
@@ -304,6 +382,16 @@ Iterator.prototype.subSplit = function(gen){
 }
 
 /**
+ * creates new Iterator from iterator
+ *
+ * @param {iterator} iter - iterator
+ * @returns {Iterator}
+ */
+Iterator.new = function(iter){
+	return new Iterator(iter);
+}
+
+/**
  * Makes Iterator from array
  *
  * @param {Any[]} arr - array
@@ -319,7 +407,7 @@ Iterator.fromArray = function(arr){
 /**
  * Makes Iterator from array
  *
- * @param {iterator[]} iters - iterators
+ * @param {...iterator} iters - iterators
  * @returns {Iterator}
  * @example
  * Iterator.fromMultiple(

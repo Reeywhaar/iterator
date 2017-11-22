@@ -2,7 +2,7 @@ const assert = require("assert");
 const I = require("./iterator.js");
 
 function* range(max, start = 0){
-	for(let i = 0; i < start + max; i++){
+	for(let i = start; i < start + max; i++){
 		yield i;
 	}
 }
@@ -70,6 +70,10 @@ describe(`Iterator`, function(){
 			const i = new I(range(5));
 			assert.strictEqual(i.reduce((c, x) => c + x), 10);
 		});
+		it(`enumerate`, function(){
+			const i = new I(range(5, 2));
+			assert.deepStrictEqual(i.enumerate().toArray(), [[0, 2], [1, 3], [2, 4], [3, 5], [4, 6]]);
+		});
 		it(`take`, function(){
 			const i = new I(range(5));
 			assert.deepStrictEqual(i.take(2).toArray(), [0,1]);
@@ -88,13 +92,29 @@ describe(`Iterator`, function(){
 			const i = new I(range(5));
 			assert.deepStrictEqual(i.everyNth(2).toArray(), [0,2,4]);
 		});
-		it(`odds`, function(){
+		it(`odd`, function(){
 			const i = new I(range(5));
-			assert.deepStrictEqual(i.odds().toArray(), [1,3]);
+			assert.deepStrictEqual(i.odd().toArray(), [1,3]);
 		});
-		it(`evens`, function(){
+		it(`even`, function(){
 			const i = new I(range(5));
-			assert.deepStrictEqual(i.evens().toArray(), [0,2,4]);
+			assert.deepStrictEqual(i.even().toArray(), [0,2,4]);
+		});
+		it(`concat`, function(){
+			const i = new I(range(3)).concat(I.fromArray(["a","b","c"]));
+			assert.deepStrictEqual(i.toArray(), [0,1,2,"a","b","c"]);
+		});
+		it(`concatLeft`, function(){
+			const i = new I(range(3)).concatLeft(I.fromArray(["a","b","c"]));
+			assert.deepStrictEqual(i.toArray(), ["a","b","c",0,1,2]);
+		});
+		it(`merge`, function(){
+			const i = new I(range(3)).merge(I.fromArray(["a","b","c"]));
+			assert.deepStrictEqual(i.toArray(), [0,"a",1,"b",2,"c"]);
+		});
+		it(`mergeLeft`, function(){
+			const i = new I(range(3)).mergeLeft(I.fromArray(["a","b","c"]));
+			assert.deepStrictEqual(i.toArray(), ["a",0,"b",1,"c",2]);
 		});
 		it(`accumulateN`, function(){
 			const i = new I(range(5));
@@ -118,6 +138,10 @@ describe(`Iterator`, function(){
 	});
 
 	describe(`static methods`, function(){
+		it(`new`, function(){
+			const i = I.new(range(2));
+			assert.deepStrictEqual(i.toArray(), [0,1]);
+		});
 		it(`fromArray`, function(){
 			const i = I.fromArray([1,2,3]);
 			assert.deepStrictEqual(i.toArray(), [1,2,3]);
