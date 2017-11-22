@@ -16,6 +16,6 @@ Iterator
 	yield item;
 	yield "a";
 }) // [4,"a",6,"a",8,"a"]
-.odds() // ["a","a","a"]
+.odd() // ["a","a","a"]
 // ...and so on. Check out <a href="https://github.com/Reeywhaar/iterator/blob/master/Documentation.md">Documentation</a>
 </pre>
