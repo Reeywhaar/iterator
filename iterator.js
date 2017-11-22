@@ -143,7 +143,7 @@ Iterator.prototype.reduce = function(fn, initial){
 }
 
 /**
- * Enumarate iterator
+ * Enumerate iterator
  *
  * @returns {Iterator}
  * @example

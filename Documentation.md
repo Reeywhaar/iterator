@@ -141,7 +141,7 @@ range(0,5).reduce((c,x) => c+x) // 10
 <a name="Iterator+enumerate"></a>
 
 ### iterator.enumerate() ⇒ [<code>Iterator</code>](#Iterator)
-Enumarate iterator
+Enumerate iterator
 
 **Kind**: instance method of [<code>Iterator</code>](#Iterator)  
 **Example**  
