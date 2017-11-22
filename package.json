@@ -8,18 +8,18 @@
     "gendoc": "jsdoc2md iterator.js > Documentation.md"
   },
   "keywords": [],
-	"author": "Mikhail Vyrtsev",
-	"homepage": "https://github.com/Reeywhaar/iterator",
-	"bugs": {
-		"url": "https://github.com/Reeywhaar/iterator/issues",
-		"email": "reeywhaar@gmail.com"
-	},
-	"repository": {
-		"type" : "git",
-		"url" : "https://github.com/Reeywhaar/iterator.git"
+  "author": "Mikhail Vyrtsev",
+  "homepage": "https://github.com/Reeywhaar/iterator",
+  "bugs": {
+    "url": "https://github.com/Reeywhaar/iterator/issues",
+    "email": "reeywhaar@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Reeywhaar/iterator.git"
   },
   "license": "BSD",
   "devDependencies": {
-    "jsdoc-to-markdown": "^3.0.0"
+    "jsdoc-to-markdown": "^3.0.2"
   }
 }
