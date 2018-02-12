@@ -56,6 +56,8 @@
         * [.new(iter)](#Iterator.new) ⇒ [<code>Iterator</code>](#Iterator)
         * [.fromArray(arr)](#Iterator.fromArray) ⇒ [<code>Iterator</code>](#Iterator)
         * [.fromMultiple(...iters)](#Iterator.fromMultiple) ⇒ [<code>Iterator</code>](#Iterator)
+        * [.range(...n)](#Iterator.range) ⇒ [<code>Iterator</code>](#Iterator)
+        * [.counter(n)](#Iterator.counter) ⇒ [<code>Iterator</code>](#Iterator)
 
 <a name="new_Iterator_new"></a>
 
@@ -388,6 +390,37 @@ Iterator.fromMultiple(
 	Iterator.fromArray([1,2,3]),
 	Iterator.fromArray(["a","b","c"]),
 ).toArray() // [1,"a","2","b",3,"c"]
+```
+<a name="Iterator.range"></a>
+
+### Iterator.range(...n) ⇒ [<code>Iterator</code>](#Iterator)
+Generates range
+
+**Kind**: static method of [<code>Iterator</code>](#Iterator)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...n | <code>Number</code> | array of number. If n.length === 1 then range is (0, n[0] - 1), if n.length === 2 then range is (n[0], n[1]), if n.length === 3, then range is (n[0], n[1]) wisth step(n[2]) |
+
+**Example**  
+```js
+Iterator.range(5) -> [0,1,2,3,4]
+```
+<a name="Iterator.counter"></a>
+
+### Iterator.counter(n) ⇒ [<code>Iterator</code>](#Iterator)
+Generates counter
+
+**Kind**: static method of [<code>Iterator</code>](#Iterator)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| n | <code>Number</code> | step. |
+
+**Example**  
+```js
+Iterator.counter() -> [0,1,2,3,4...]
+Iterator.counter(2) -> [0,2,4,6,8...]
 ```
 <a name="mapFunction"></a>
 

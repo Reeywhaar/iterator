@@ -1,3 +1,8 @@
+.PHONY: all
+
+all: iterator.js Documentation.md
+	npm test
+
 iterator.js: iterator.es6.js
 	sed "s/^export default /module\.exports = /" iterator.es6.js > iterator.js
 

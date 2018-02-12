@@ -431,4 +431,62 @@ Iterator.fromMultiple = function(...iters) {
 	return new Iterator(it.call(this));
 };
 
+/**
+ * Generates range
+ *
+ * @param {...Number} n - array of number.
+ * If n.length === 1 then range is (0, n[0] - 1),
+ * if n.length === 2 then range is (n[0], n[1]),
+ * if n.length === 3, then range is (n[0], n[1]) wisth step(n[2])
+ * @returns {Iterator}
+ * @example
+ * Iterator.range(5) -> [0,1,2,3,4]
+ */
+Iterator.range = function(...n) {
+	const it = function*(...n) {
+		let start = 0;
+		let end = 9;
+		let step = 1;
+		if (n.length === 1) end = n[0] - 1;
+		if (n.length > 1) {
+			start = n[0];
+			end = n[1];
+		}
+		if (n.length > 2) {
+			step = n[2];
+			if (step < 1) throw new Error("step must be positive");
+		}
+		const delta = Math.floor(Math.abs(end - start) / step);
+		if (end < start) {
+			step = step * -1;
+		}
+		for (let i = 0; i <= delta; i++) {
+			yield start + i * step;
+		}
+	};
+
+	return new Iterator(it(...n));
+};
+
+/**
+ * Generates counter
+ *
+ * @param {Number} n - step.
+ * @returns {Iterator}
+ * @example
+ * Iterator.counter() -> [0,1,2,3,4...]
+ * Iterator.counter(2) -> [0,2,4,6,8...]
+ */
+Iterator.counter = function(n = 1) {
+	const it = function*(n) {
+		let i = 0;
+		while (true) {
+			yield i;
+			i += n;
+		}
+	};
+
+	return new Iterator(it(n));
+};
+
 module.exports = Iterator;
