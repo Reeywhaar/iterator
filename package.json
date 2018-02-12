@@ -4,8 +4,9 @@
   "description": "",
   "main": "iterator.js",
   "scripts": {
-    "test": "mocha *.spec.js",
-    "gendoc": "jsdoc2md iterator.js > Documentation.md"
+    "test": "npm run gen && mocha *.spec.js",
+		"gen": "make iterator.js",
+    "gendoc": "make Documentation.md"
   },
   "keywords": [],
   "author": "Mikhail Vyrtsev",
