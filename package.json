@@ -5,7 +5,7 @@
   "main": "iterator.js",
   "scripts": {
     "test": "npm run gen && mocha *.spec.js",
-		"gen": "make iterator.js",
+    "gen": "make iterator.js",
     "gendoc": "make Documentation.md"
   },
   "keywords": [],
@@ -21,6 +21,6 @@
   },
   "license": "BSD",
   "devDependencies": {
-    "jsdoc-to-markdown": "^3.0.2"
+    "jsdoc-to-markdown": "^4"
   }
 }
