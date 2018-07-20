@@ -154,6 +154,10 @@ describe(`Iterator`, function() {
 				"To thee"
 			);
 		});
+		it(`join`, function() {
+			assert.strictEqual(I.fromArray(["a", "b", "c"]).join(), "abc");
+			assert.strictEqual(I.fromArray([1, 2, 3]).join(","), "1,2,3");
+		});
 	});
 
 	describe(`static methods`, function() {

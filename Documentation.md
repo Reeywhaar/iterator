@@ -52,6 +52,7 @@
         * [.accumulateWhile(fn, [yieldRest])](#Iterator+accumulateWhile) ⇒ [<code>Iterator</code>](#Iterator)
         * [.accumulateN(n, [yieldRest])](#Iterator+accumulateN) ⇒ [<code>Iterator</code>](#Iterator)
         * [.subSplit(generator)](#Iterator+subSplit) ⇒ [<code>Iterator</code>](#Iterator)
+        * [.join(delimiter)](#Iterator+join) ⇒ <code>string</code>
     * _static_
         * [.new(iter)](#Iterator.new) ⇒ [<code>Iterator</code>](#Iterator)
         * [.fromArray(arr)](#Iterator.fromArray) ⇒ [<code>Iterator</code>](#Iterator)
@@ -350,6 +351,22 @@ Iterator.fromArray(["ab", "cd"]).subSplit(function*(item){
 		yield item
 	}
 }) // ["a", "b", "c", "d"]
+```
+<a name="Iterator+join"></a>
+
+### iterator.join(delimiter) ⇒ <code>string</code>
+Joins values with delimiter
+
+**Kind**: instance method of [<code>Iterator</code>](#Iterator)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| delimiter | <code>string</code> | delimiter (default: "") |
+
+**Example**  
+```js
+Iterator.fromArray(["ab", "cd"]).join() // "abcd"
+Iterator.fromArray(["ab", "cd"]).join(" ") // "ab cd"
 ```
 <a name="Iterator.new"></a>
 

@@ -381,6 +381,19 @@ Iterator.prototype.subSplit = function(gen) {
 };
 
 /**
+ * Joins values with delimiter
+ *
+ * @param {string} delimiter - delimiter (default: "")
+ * @returns {string}
+ * @example
+ * Iterator.fromArray(["ab", "cd"]).join() // "abcd"
+ * Iterator.fromArray(["ab", "cd"]).join(" ") // "ab cd"
+ */
+Iterator.prototype.join = function(delimiter = "") {
+	return this.toArray().join(delimiter);
+};
+
+/**
  * creates new Iterator from iterator
  *
  * @param {iterator} iter - iterator
