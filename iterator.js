@@ -39,6 +39,22 @@ Iterator.prototype.toArray = function() {
  */
 
 /**
+ * Mutates given iterator
+ *
+ * @param {Generator} gen - function to transform values
+ * @returns {Iterator}
+ * @example
+ * range(0,5).mutate(function* (it){
+ *   for(let i of it){
+ *     yield i*2;
+ *   }
+ * }) // [0,2,4,6,8]
+ */
+Iterator.prototype.pipe = function(gen) {
+	return new Iterator(gen(this.gen));
+};
+
+/**
  * Map over iterator values
  *
  * @param {mapFunction} fn - function to transform values

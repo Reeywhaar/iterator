@@ -52,6 +52,19 @@ describe(`Iterator`, function() {
 			const i = new I(range(5));
 			assert.deepStrictEqual(i.toArray(), [0, 1, 2, 3, 4]);
 		});
+		it(`pipe`, function() {
+			const i = new I(range(5));
+			assert.deepStrictEqual(
+				i
+					.pipe(function*(it) {
+						for (let i of it) {
+							yield i * 2;
+						}
+					})
+					.toArray(),
+				[0, 2, 4, 6, 8]
+			);
+		});
 		it(`map`, function() {
 			const i = new I(range(5));
 			assert.deepStrictEqual(i.map(x => x * 2).toArray(), [0, 2, 4, 6, 8]);

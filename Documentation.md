@@ -34,6 +34,7 @@
     * [new Iterator(gen)](#new_Iterator_new)
     * _instance_
         * [.toArray()](#Iterator+toArray) ⇒ <code>Array.&lt;Any&gt;</code>
+        * [.pipe(gen)](#Iterator+pipe) ⇒ [<code>Iterator</code>](#Iterator)
         * [.map(fn)](#Iterator+map) ⇒ [<code>Iterator</code>](#Iterator)
         * [.forEach(fn)](#Iterator+forEach) ⇒ <code>void</code>
         * [.filter(fn)](#Iterator+filter) ⇒ [<code>Iterator</code>](#Iterator)
@@ -77,6 +78,25 @@ Transform iterator to array.
 Be aware with infinite iterators
 
 **Kind**: instance method of [<code>Iterator</code>](#Iterator)  
+<a name="Iterator+pipe"></a>
+
+### iterator.pipe(gen) ⇒ [<code>Iterator</code>](#Iterator)
+Mutates given iterator
+
+**Kind**: instance method of [<code>Iterator</code>](#Iterator)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| gen | <code>Generator</code> | function to transform values |
+
+**Example**  
+```js
+range(0,5).mutate(function* (it){
+  for(let i of it){
+    yield i*2;
+  }
+}) // [0,2,4,6,8]
+```
 <a name="Iterator+map"></a>
 
 ### iterator.map(fn) ⇒ [<code>Iterator</code>](#Iterator)
@@ -496,8 +516,6 @@ function which Iterator instance mepthod consumes
 Generator function
 
 **Kind**: global typedef  
-**Generator**:   
-**Yields**: *  
 
 | Param | Type | Description |
 | --- | --- | --- |
