@@ -48,6 +48,15 @@ describe(`Iterator`, function() {
 			}
 			assert.strictEqual(count, 5);
 		});
+		it(`constructsFromArray`, function() {
+			const i = new I([0, 1, 2]);
+			let count = 0;
+			for (let item of i) {
+				assert.strictEqual(item, count);
+				count++;
+			}
+			assert.strictEqual(count, 3);
+		});
 		it(`toArray`, function() {
 			const i = new I(range(5));
 			assert.deepStrictEqual(i.toArray(), [0, 1, 2, 3, 4]);
@@ -232,6 +241,32 @@ describe(`Iterator`, function() {
 			assert.deepStrictEqual(i.toArray(), [0, 3, 6, 9, 12], "basic failed");
 			i = I.counter(-2).take(5);
 			assert.deepStrictEqual(i.toArray(), [0, -2, -4, -6, -8], "basic failed");
+		});
+	});
+
+	describe(`Extends`, function() {
+		it(`extends`, function() {
+			class VI extends I {
+				dummy() {
+					let it = this;
+					let fn = function*() {
+						for (let item of it) {
+							yield item * 2;
+						}
+					};
+					return new this.constructor(fn());
+				}
+			}
+
+			{
+				let i = new VI([1, 2, 3]);
+				assert(typeof i.dummy === "function");
+			}
+			{
+				let i = VI.fromArray([1, 2, 3]);
+				assert(typeof i.dummy === "function");
+				assert.deepEqual(i.dummy().toArray(), [2, 4, 6]);
+			}
 		});
 	});
 });

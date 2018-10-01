@@ -4,6 +4,15 @@
  * @param {iterator} gen - iterator
  */
 function Iterator(gen) {
+	if (typeof gen.next !== "function") {
+		if (typeof gen[Symbol.iterator] !== "function") {
+			throw new Error("Input is not iterable");
+		}
+		gen = gen[Symbol.iterator]();
+	}
+	if (typeof gen.next !== "function") {
+		throw new Error("Input is not iterable");
+	}
 	this.gen = gen;
 }
 
@@ -51,7 +60,7 @@ Iterator.prototype.toArray = function() {
  * }) // [0,2,4,6,8]
  */
 Iterator.prototype.pipe = function(gen) {
-	return new Iterator(gen(this.gen));
+	return new this.constructor(gen(this.gen));
 };
 
 /**
@@ -70,7 +79,7 @@ Iterator.prototype.map = function(fn) {
 			i++;
 		}
 	};
-	return new Iterator(it.call(this));
+	return new this.constructor(it.call(this));
 };
 
 /**
@@ -117,7 +126,7 @@ Iterator.prototype.filter = function(fn) {
 			i++;
 		}
 	};
-	return new Iterator(it.call(this));
+	return new this.constructor(it.call(this));
 };
 
 /**
@@ -172,7 +181,7 @@ Iterator.prototype.enumerate = function() {
 			i++;
 		}
 	};
-	return new Iterator(it.call(this));
+	return new this.constructor(it.call(this));
 };
 
 /**
@@ -216,7 +225,7 @@ Iterator.prototype.while = function(fn) {
 			i++;
 		}
 	};
-	return new Iterator(it.call(this));
+	return new this.constructor(it.call(this));
 };
 
 /**
@@ -268,7 +277,7 @@ Iterator.prototype.concat = function(...iters) {
 		yield* this.gen;
 		for (let iter of iters) yield* iter;
 	};
-	return new Iterator(it.call(this));
+	return new this.constructor(it.call(this));
 };
 
 /**
@@ -285,7 +294,7 @@ Iterator.prototype.concatLeft = function(...iters) {
 		for (let iter of iters) yield* iter;
 		yield* this.gen;
 	};
-	return new Iterator(it.call(this));
+	return new this.constructor(it.call(this));
 };
 
 /**
@@ -298,7 +307,7 @@ Iterator.prototype.concatLeft = function(...iters) {
  * .merge(Iterator.fromArray(["a","b","c"])) // [[0,"a",1,"b",2,"c"]]
  */
 Iterator.prototype.merge = function(...iters) {
-	return Iterator.fromMultiple(this.gen, ...iters);
+	return this.constructor.fromMultiple(this.gen, ...iters);
 };
 
 /**
@@ -311,7 +320,7 @@ Iterator.prototype.merge = function(...iters) {
  * .mergeLeft(Iterator.fromArray(["a","b","c"])) // [["a",0,"b",1,"c",2]]
  */
 Iterator.prototype.mergeLeft = function(...iters) {
-	return Iterator.fromMultiple(...iters, this.gen);
+	return this.constructor.fromMultiple(...iters, this.gen);
 };
 
 /**
@@ -352,7 +361,7 @@ Iterator.prototype.accumulateWhile = function(fn, yieldRest = false) {
 			yield arr;
 		}
 	};
-	return new Iterator(it.call(this));
+	return new this.constructor(it.call(this));
 };
 
 /**
@@ -393,7 +402,7 @@ Iterator.prototype.subSplit = function(gen) {
 	const it = function*() {
 		for (let item of this.gen) yield* gen(item);
 	};
-	return new Iterator(it.call(this));
+	return new this.constructor(it.call(this));
 };
 
 /**
@@ -416,7 +425,7 @@ Iterator.prototype.join = function(delimiter = "") {
  * @returns {Iterator}
  */
 Iterator.new = function(iter) {
-	return new Iterator(iter);
+	return new this(iter);
 };
 
 /**
@@ -429,7 +438,7 @@ Iterator.fromArray = function(arr) {
 	const it = function*() {
 		for (let item of arr) yield item;
 	};
-	return new Iterator(it.call(this));
+	return new this(it.call(this));
 };
 
 /**
@@ -457,7 +466,7 @@ Iterator.fromMultiple = function(...iters) {
 			}
 		}
 	};
-	return new Iterator(it.call(this));
+	return new this(it.call(this));
 };
 
 /**
@@ -494,7 +503,7 @@ Iterator.range = function(...n) {
 		}
 	};
 
-	return new Iterator(it(...n));
+	return new this(it(...n));
 };
 
 /**
@@ -515,7 +524,7 @@ Iterator.counter = function(n = 1) {
 		}
 	};
 
-	return new Iterator(it(n));
+	return new this(it(n));
 };
 
 module.exports = Iterator;
