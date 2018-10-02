@@ -19,3 +19,5 @@ Iterator
 .odd() // ["a","a","a"]
 // ...and so on. Check out <a href="https://github.com/Reeywhaar/iterator/blob/master/Documentation.md">Documentation</a>
 </pre>
+
+# API

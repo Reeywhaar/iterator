@@ -1,13 +1,14 @@
-const assert = require("assert");
-const I = require("./iterator.js");
+// @ts-ignore
+import assert from "assert";
+import I from "./iterator";
 
-function* range(max, start = 0) {
+function* range(max: number, start: number = 0): IterableIterator<number> {
 	for (let i = start; i < start + max; i++) {
 		yield i;
 	}
 }
 
-function* counter() {
+function* counter(): IterableIterator<number> {
 	let i = 0;
 	while (true) {
 		yield i;
@@ -15,13 +16,13 @@ function* counter() {
 	}
 }
 
-function* chars(str) {
+function* chars(str: string): IterableIterator<string> {
 	for (let char of str) {
 		yield char;
 	}
 }
 
-function* shakespeare() {
+function* shakespeare(): IterableIterator<string> {
 	const lear = `
 To thee and thine hereditary ever
 Remain this ample third of our fair kingdom;
@@ -80,7 +81,7 @@ describe(`Iterator`, function() {
 		});
 		it(`forEach`, function() {
 			const i = new I(range(5));
-			const arr = [];
+			const arr: number[] = [];
 			i.forEach(x => arr.push(x));
 			assert.deepStrictEqual(arr, [0, 1, 2, 3, 4]);
 		});
@@ -193,8 +194,8 @@ describe(`Iterator`, function() {
 		});
 		it(`fromMultiple`, function() {
 			const i = I.fromMultiple(
-				I.fromArray([1, 2, 3]),
-				I.fromArray(["a", "b", "c"])
+				I.fromArray([1, 2, 3] as any[]),
+				I.fromArray(["a", "b", "c"] as any[])
 			);
 			assert.deepStrictEqual(i.toArray(), [1, "a", 2, "b", 3, "c"]);
 		});
@@ -246,7 +247,7 @@ describe(`Iterator`, function() {
 
 	describe(`Extends`, function() {
 		it(`extends`, function() {
-			class VI extends I {
+			class VI extends I<number> {
 				dummy() {
 					let it = this;
 					let fn = function*() {
@@ -254,7 +255,7 @@ describe(`Iterator`, function() {
 							yield item * 2;
 						}
 					};
-					return new this.constructor(fn());
+					return new (this.constructor as new (a: any) => VI)(fn());
 				}
 			}
 
@@ -264,8 +265,8 @@ describe(`Iterator`, function() {
 			}
 			{
 				let i = VI.fromArray([1, 2, 3]);
-				assert(typeof i.dummy === "function");
-				assert.deepEqual(i.dummy().toArray(), [2, 4, 6]);
+				assert(typeof (i as VI).dummy === "function");
+				assert.deepEqual((i as VI).dummy().toArray(), [2, 4, 6]);
 			}
 		});
 	});

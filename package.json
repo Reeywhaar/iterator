@@ -4,9 +4,10 @@
   "description": "",
   "main": "iterator.js",
   "scripts": {
-    "test": "npm run gen && mocha *.spec.js",
-    "gen": "make iterator.js",
-    "gendoc": "make Documentation.md"
+    "test": "make commonjs && mocha *.spec.js",
+    "make:commonjs": "make commonjs",
+    "make:es6": "make es6",
+    "make:docs": "typedoc --excludeExternals --theme minimal --out ./docs/ iterator.ts"
   },
   "keywords": [],
   "author": "Mikhail Vyrtsev",
@@ -19,8 +20,13 @@
     "type": "git",
     "url": "https://github.com/Reeywhaar/iterator.git"
   },
-  "license": "BSD",
+  "license": "BSD-3-Clause",
   "devDependencies": {
-    "jsdoc-to-markdown": "^4"
+    "@types/jest": "^23.3.10",
+    "jest": "^23.6.0",
+    "jsdoc-to-markdown": "^4",
+    "ts-jest": "^23.10.5",
+    "typedoc": "^0.13.0",
+    "typescript": "^3.2.2"
   }
 }

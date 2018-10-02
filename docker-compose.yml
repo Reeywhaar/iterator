@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+    builder:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: "vyrtsev/iterator/builder"
+        container_name: "iterator_builder"
+        volumes:
+            - ./src:/app/src:ro
+            - ./makefile:/app/makefile:ro
+            - ./tsconfig.json:/app/tsconfig.json:ro
+            - ./tsconfig.es.json:/app/tsconfig.es.json:ro
+            - ./jest.config.js:/app/jest.config.js:ro
+            - ./sync-packages.sh:/app/sync-packages.sh:ro
+            - ./package.json:/app/package.json.host
+            - ./package-lock.json:/app/package-lock.json.host
+            - ./build:/app/build
+            - ./es6:/app/es6
+            - ./docs:/app/docs
