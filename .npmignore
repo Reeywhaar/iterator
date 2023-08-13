@@ -1,0 +1,7 @@
+docs
+src
+node_modules
+.gitignore
+jest.config.js
+tsconfig.json
+tsconfig.es.ßjson
