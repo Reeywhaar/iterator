@@ -2,14 +2,18 @@
   "name": "@reeywhaar/iterator",
   "version": "0.6.1",
   "description": "",
-  "main": "iterator.js",
   "scripts": {
     "tscheck": "tsc --noEmit",
     "test": "jest",
     "build:cjs": "tsc",
-    "build:es6": "tsc --build tsconfig.es.json",
+    "build:mjs": "tsc --build tsconfig.es.json",
+    "build": "npm run build:cjs && npm run build:mjs",
     "docs": "typedoc --excludeExternals --out ./docs/ src/iterator.ts",
     "lint": "prettier src --write"
+  },
+  "exports": {
+    "import": "./build/mjs/iterator.js",
+    "require": "./build/cjs/iterator.js"
   },
   "keywords": [],
   "author": "Mikhail Vyrtsev",

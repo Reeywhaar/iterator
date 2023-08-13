@@ -4,7 +4,7 @@
     "target": "ES2015",
     "module": "commonjs",
     "lib": ["es2015", "es2015.iterable", "dom"],
-    "outDir": "./build/cjs",
+    "outDir": "./dist/cjs",
     "declaration": true,
     "downlevelIteration": true,
     "strict": true,
@@ -13,5 +13,5 @@
     "noImplicitAny": true
   },
   "typeAcquisition": { "enable": true },
-  "exclude": ["node_modules", "**/*.spec.ts", "build", "es6", "docs"]
+  "exclude": ["node_modules", "dist", "docs"]
 }

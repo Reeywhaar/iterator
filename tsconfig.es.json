@@ -3,7 +3,7 @@
   "compilerOptions": {
     "target": "ES2016",
     "module": "es2015",
-    "outDir": "./build/es6",
-    "moduleResolution": "NodeNext",
+    "outDir": "./dist/mjs",
+    "moduleResolution": "NodeNext"
   }
 }
