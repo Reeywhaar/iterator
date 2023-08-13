@@ -1,0 +1,33 @@
+name: Create a release
+
+on:
+  push:
+    tags:
+      - "*.*"
+
+jobs:
+  publish-gpr:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: write
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+      - name: "Setup node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+          registry-url: "https://registry.npmjs.org"
+      - run: npm ci
+      - run: npm test
+      - run: npm run docs
+      - run: npm run build
+      - name: "Create Release"
+        uses: softprops/action-gh-release@78c309ef59fdb9557cd6574f2e0be552936ed728
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Publish"
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
