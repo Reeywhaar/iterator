@@ -353,12 +353,29 @@ export default class Iterator<T> implements Iterable<T> {
 	 * 	}
 	 * }) // ["a", "b", "c", "d"]
 	 */
-	subSplit<U>(gen: (value: T) => IterableIterator<U>): Iterator<U> {
+	flatMap<U>(gen: (value: T) => IterableIterator<U>): Iterator<U> {
 		const t = this.it;
 		const it = function*() {
 			for (let item of t) yield* gen(item) as IterableIterator<U>;
 		};
 		return new (<typeof Iterator>this.constructor)(it());
+	}
+
+	/**
+	 * @deprecated use .flatMap instead
+	 *
+	 * Subsplits iterator items and subyields them
+	 *
+	 * @param generator
+	 * @example
+	 * Iterator.fromArray(["ab", "cd"]).subSplit(function*(item){
+	 * 	for(let char of item){
+	 * 		yield item
+	 * 	}
+	 * }) // ["a", "b", "c", "d"]
+	 */
+	subSplit<U>(gen: (value: T) => IterableIterator<U>): Iterator<U> {
+		return this.flatMap(gen);
 	}
 
 	/**
