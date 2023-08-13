@@ -6,7 +6,7 @@
   "scripts": {
     "tscheck": "tsc --noEmit",
     "test": "jest",
-    "build:commonjs": "tsc",
+    "build:cjs": "tsc",
     "build:es6": "tsc --build tsconfig.es.json",
     "docs": "typedoc --excludeExternals --out ./docs/ src/iterator.ts"
   },
