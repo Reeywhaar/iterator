@@ -6,9 +6,9 @@
   "scripts": {
     "tscheck": "tsc --noEmit",
     "test": "jest",
-    "make:commonjs": "make buildCommonJS",
-    "make:es6": "make buildES6",
-    "make:docs": "typedoc --excludeExternals --theme minimal --out ./docs/ iterator.ts"
+    "build:commonjs": "tsc",
+    "build:es6": "tsc --build tsconfig.es.json",
+    "docs": "typedoc --excludeExternals --out ./docs/ src/iterator.ts"
   },
   "keywords": [],
   "author": "Mikhail Vyrtsev",
