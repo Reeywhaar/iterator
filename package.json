@@ -4,9 +4,10 @@
   "description": "",
   "main": "iterator.js",
   "scripts": {
-    "test": "make commonjs && mocha *.spec.js",
-    "make:commonjs": "make commonjs",
-    "make:es6": "make es6",
+    "tscheck": "tsc --noEmit",
+    "test": "jest",
+    "make:commonjs": "make buildCommonJS",
+    "make:es6": "make buildES6",
     "make:docs": "typedoc --excludeExternals --theme minimal --out ./docs/ iterator.ts"
   },
   "keywords": [],
@@ -22,11 +23,11 @@
   },
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "@types/jest": "^23.3.10",
-    "jest": "^23.6.0",
-    "jsdoc-to-markdown": "^4",
-    "ts-jest": "^23.10.5",
-    "typedoc": "^0.13.0",
-    "typescript": "^3.2.2"
+    "@types/jest": "^29.5.3",
+    "jest": "^29.6.2",
+    "jsdoc-to-markdown": "^8.0.0",
+    "ts-jest": "^29.1.1",
+    "typedoc": "^0.24.8",
+    "typescript": "^5.1.6"
   }
 }

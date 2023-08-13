@@ -91,7 +91,7 @@ describe(`Iterator`, function() {
 		});
 		it(`reduce`, function() {
 			const i = new I(range(5));
-			assert.strictEqual(i.reduce((c, x) => c + x), 10);
+			assert.strictEqual(i.reduce<number>((c, x) => c + x), 10);
 		});
 		it(`enumerate`, function() {
 			const i = new I(range(5, 2));
