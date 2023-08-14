@@ -1,6 +1,6 @@
 {
   "name": "@reeywhaar/iterator",
-  "version": "0.7.0-b.5",
+  "version": "0.7.0",
   "description": "",
   "scripts": {
     "tscheck": "tsc --noEmit",
