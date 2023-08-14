@@ -27,6 +27,9 @@
     "url": "https://github.com/Reeywhaar/iterator.git"
   },
   "types": "dist/es6/iterator.d.ts",
+  "files": [
+    "/dist"
+  ],
   "license": "BSD-3-Clause",
   "devDependencies": {
     "@types/jest": "^29.5.3",
